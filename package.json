@@ -1,0 +1,166 @@
+{
+  "name": "sprintflint",
+  "displayName": "SprintFlint",
+  "description": "View and manage SprintFlint issues directly in VS Code",
+  "version": "0.1.0",
+  "publisher": "sprintflint",
+  "engines": {
+    "vscode": "^1.74.0"
+  },
+  "categories": [
+    "Other",
+    "Debuggers"
+  ],
+  "keywords": [
+    "sprintflint",
+    "agile",
+    "sprint",
+    "issues",
+    "project management"
+  ],
+  "activationEvents": [
+    "onCommand:sprintflint.authenticate",
+    "onView:sprintflintIssues"
+  ],
+  "main": "./out/extension.js",
+  "contributes": {
+    "commands": [
+      {
+        "command": "sprintflint.authenticate",
+        "title": "Authenticate",
+        "category": "SprintFlint"
+      },
+      {
+        "command": "sprintflint.refreshIssues",
+        "title": "Refresh Issues",
+        "icon": "$(refresh)",
+        "category": "SprintFlint"
+      },
+      {
+        "command": "sprintflint.createIssue",
+        "title": "Create Issue",
+        "icon": "$(add)",
+        "category": "SprintFlint"
+      },
+      {
+        "command": "sprintflint.openIssue",
+        "title": "Open Issue",
+        "category": "SprintFlint"
+      },
+      {
+        "command": "sprintflint.viewIssueDetails",
+        "title": "View Details",
+        "category": "SprintFlint"
+      },
+      {
+        "command": "sprintflint.startAutoplay",
+        "title": "Start Autoplay",
+        "icon": "$(play)",
+        "category": "SprintFlint"
+      },
+      {
+        "command": "sprintflint.searchIssues",
+        "title": "Search Issues",
+        "category": "SprintFlint"
+      }
+    ],
+    "views": {
+      "explorer": [
+        {
+          "id": "sprintflintIssues",
+          "name": "SprintFlint Issues",
+          "when": "sprintflint:authenticated"
+        }
+      ]
+    },
+    "viewsContainers": {
+      "activitybar": [
+        {
+          "id": "sprintflint",
+          "title": "SprintFlint",
+          "icon": "$(debug-alt)"
+        }
+      ]
+    },
+    "views": {
+      "sprintflint": [
+        {
+          "id": "sprintflint.myIssues",
+          "name": "My Issues",
+          "icon": "$(person)"
+        },
+        {
+          "id": "sprintflint.sprintIssues",
+          "name": "Current Sprint",
+          "icon": "$(debug-alt)"
+        },
+        {
+          "id": "sprintflint.backlog",
+          "name": "Backlog",
+          "icon": "$(archive)"
+        }
+      ]
+    },
+    "menus": {
+      "view/title": [
+        {
+          "command": "sprintflint.refreshIssues",
+          "when": "view == sprintflint.myIssues || view == sprintflint.sprintIssues || view == sprintflint.backlog",
+          "group": "navigation"
+        },
+        {
+          "command": "sprintflint.createIssue",
+          "when": "view == sprintflint.myIssues || view == sprintflint.sprintIssues || view == sprintflint.backlog",
+          "group": "navigation"
+        }
+      ],
+      "view/item/context": [
+        {
+          "command": "sprintflint.openIssue",
+          "when": "viewItem == issue",
+          "group": "inline"
+        },
+        {
+          "command": "sprintflint.startAutoplay",
+          "when": "viewItem == issue",
+          "group": "inline"
+        }
+      ]
+    },
+    "configuration": {
+      "title": "SprintFlint",
+      "properties": {
+        "sprintflint.apiToken": {
+          "type": "string",
+          "default": "",
+          "description": "SprintFlint API token",
+          "scope": "application"
+        },
+        "sprintflint.apiUrl": {
+          "type": "string",
+          "default": "https://sprintflint.com/api/v1",
+          "description": "SprintFlint API URL"
+        }
+      }
+    }
+  },
+  "scripts": {
+    "vscode:prepublish": "npm run compile",
+    "compile": "tsc -p ./",
+    "watch": "tsc -watch -p ./",
+    "pretest": "npm run compile && npm run lint",
+    "lint": "eslint src --ext ts",
+    "test": "node ./out/test/runTest.js"
+  },
+  "devDependencies": {
+    "@types/vscode": "^1.74.0",
+    "@types/node": "16.x",
+    "@typescript-eslint/eslint-plugin": "^5.45.0",
+    "@typescript-eslint/parser": "^5.45.0",
+    "eslint": "^8.28.0",
+    "typescript": "^4.9.4"
+  },
+  "dependencies": {
+    "axios": "^1.6.0"
+  }
+}
