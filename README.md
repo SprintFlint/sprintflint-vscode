@@ -12,21 +12,22 @@ View and manage SprintFlint issues directly in VS Code.
 - **Autoplay**: Trigger AI agents directly from the sidebar
 - **Issue Details**: View full issue details in a webview panel
 
-## Installation
+> The extension is in development and is not yet published to the VS Code Marketplace. To use SprintFlint with your editor today, the supported path is the hosted MCP server at [sprintflint.com/mcp](https://sprintflint.com/mcp) (Claude Desktop / Cursor / Zed / Claude Code, plus VS Code via Copilot Chat's MCP support).
 
-1. Open VS Code
-2. Go to Extensions (Cmd+Shift+X)
-3. Search for "SprintFlint"
-4. Click Install
+## Installation (build from source)
 
-Or install from CLI:
 ```bash
-code --install-extension sprintflint.vsix
+git clone https://github.com/SprintFlint/sprintflint-vscode.git
+cd sprintflint-vscode
+npm install
+npm run compile
+vsce package          # produces a .vsix file
+code --install-extension sprintflint-vscode-*.vsix
 ```
 
 ## Setup
 
-1. Get your API token from https://sprintflint.com/settings/api
+1. Get your API token from https://sprintflint.com/accounts/edit (the "API Token" section on the profile page)
 2. Open Command Palette (Cmd+Shift+P)
 3. Run "SprintFlint: Authenticate"
 4. Enter your API token
